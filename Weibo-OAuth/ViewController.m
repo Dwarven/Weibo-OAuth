@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "WeiboAccess.h"
 
 @interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
 
@@ -17,6 +20,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (IBAction)login:(id)sender {
+    [_textView setText:@""];
+    [[WeiboAccess defaultAccess] login:^(BOOL succeeded, id object) {
+        [_textView setText:[NSString stringWithFormat:@"%@",object]];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

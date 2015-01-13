@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "WeiboAccess.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [WeiboAccess registerApp];
+#ifdef DEBUG
+    [WeiboAccess enableDebugMode:YES];
+#endif
     return YES;
 }
 
@@ -40,6 +45,14 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [WeiboAccess handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    return [self application:application handleOpenURL:url];
 }
 
 @end
