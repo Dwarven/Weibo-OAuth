@@ -25,7 +25,13 @@
 - (IBAction)login:(id)sender {
     [_textView setText:@""];
     [[WeiboAccess defaultAccess] login:^(BOOL succeeded, id object) {
-        [_textView setText:[NSString stringWithFormat:@"%@",object]];
+        if (succeeded) {
+            [_textView setText:[NSString stringWithFormat:@"%@",object]];
+        }else{
+            if (WeiboStatusCodeAuthDeny == [object[WEIBO_STATUS_CODE] integerValue]) {
+                [_textView setText:@"sso package or sign error"];
+            }
+        }
     }];
 }
 

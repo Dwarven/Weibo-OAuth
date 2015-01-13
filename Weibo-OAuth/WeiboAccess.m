@@ -12,6 +12,8 @@
 #define kAppKey         @"2045436852"
 #define kRedirectURI    @"http://www.sina.com"
 
+NSInteger const WeiboStatusCodeAuthDeny = WeiboSDKResponseStatusCodeAuthDeny;
+
 @interface NSMutableDictionary (setObjectWithOutNil)
 
 - (void)setObjectWithOutNil:(id)anObject forKey:(id<NSCopying>)aKey;
@@ -80,7 +82,7 @@
     {
         NSMutableDictionary * dic = [NSMutableDictionary dictionary];
         [dic setObjectWithOutNil:@"认证结果" forKey:@"title"];
-        [dic setObjectWithOutNil:[NSNumber numberWithInteger:response.statusCode] forKey:@"statusCode"];
+        [dic setObjectWithOutNil:[NSNumber numberWithInteger:response.statusCode] forKey:WEIBO_STATUS_CODE];
         [dic setObjectWithOutNil:[(WBAuthorizeResponse *)response userID] forKey:@"userID"];
         [dic setObjectWithOutNil:[(WBAuthorizeResponse *)response accessToken] forKey:@"accessToken"];
         [dic setObjectWithOutNil:response.userInfo forKey:@"userInfo"];

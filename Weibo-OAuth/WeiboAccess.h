@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#define WEIBO_STATUS_CODE @"status_code"
+
+extern NSInteger const WeiboStatusCodeAuthDeny;
+
 @interface WeiboAccess : NSObject
 
 + (WeiboAccess *)defaultAccess;;
