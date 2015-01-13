@@ -12,6 +12,22 @@
 #define kAppKey         @"2045436852"
 #define kRedirectURI    @"http://www.sina.com"
 
+@interface NSMutableDictionary (setObjectWithOutNil)
+
+- (void)setObjectWithOutNil:(id)anObject forKey:(id<NSCopying>)aKey;
+
+@end
+
+@implementation NSMutableDictionary (setObjectWithOutNil)
+
+- (void)setObjectWithOutNil:(id)anObject forKey:(id<NSCopying>)aKey{
+    if (anObject) {
+        [self setObject:anObject forKey:aKey];
+    }
+}
+
+@end
+
 @interface WeiboAccess ()<WeiboSDKDelegate>{
     void(^_result)(BOOL,id);
 }
@@ -63,13 +79,13 @@
     if ([response isKindOfClass:[WBAuthorizeResponse class]])
     {
         NSMutableDictionary * dic = [NSMutableDictionary dictionary];
-        [dic setObject:@"认证结果" forKey:@"title"];
-        [dic setObject:[NSNumber numberWithInteger:response.statusCode] forKey:@"statusCode"];
-        [dic setObject:[(WBAuthorizeResponse *)response userID] forKey:@"userID"];
-        [dic setObject:[(WBAuthorizeResponse *)response accessToken] forKey:@"accessToken"];
-        [dic setObject:response.userInfo forKey:@"userInfo"];
-        [dic setObject:response.requestUserInfo forKey:@"requestUserInfo"];
-        [dic setObject:[(WBAuthorizeResponse *)response expirationDate] forKey:@"expirationDate"];
+        [dic setObjectWithOutNil:@"认证结果" forKey:@"title"];
+        [dic setObjectWithOutNil:[NSNumber numberWithInteger:response.statusCode] forKey:@"statusCode"];
+        [dic setObjectWithOutNil:[(WBAuthorizeResponse *)response userID] forKey:@"userID"];
+        [dic setObjectWithOutNil:[(WBAuthorizeResponse *)response accessToken] forKey:@"accessToken"];
+        [dic setObjectWithOutNil:response.userInfo forKey:@"userInfo"];
+        [dic setObjectWithOutNil:response.requestUserInfo forKey:@"requestUserInfo"];
+        [dic setObjectWithOutNil:[(WBAuthorizeResponse *)response expirationDate] forKey:@"expirationDate"];
         _result(response.statusCode == 0 ? YES : NO,dic);
     }else{
         _result(NO,nil);
